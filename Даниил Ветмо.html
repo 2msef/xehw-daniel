@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Даниил Ветмо</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;500;700&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#000; --ink:#f4f4f5; --mute:#8b8b93; --line:rgba(255,255,255,.12);
+  --glow:#b8c4ff;
+  --display:'Unbounded','Arial Black',sans-serif;
+  --body:'Manrope','Helvetica Neue',Arial,sans-serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.65 var(--body);overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--glow);outline-offset:4px;border-radius:999px}
+
+/* фон */
+.orbs{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.orb{position:absolute;border-radius:50%;filter:blur(90px);opacity:.28}
+.o1{width:46vmax;height:46vmax;left:-14vmax;top:-12vmax;background:radial-gradient(circle,#4a55b8,transparent 65%);animation:drift1 22s ease-in-out infinite alternate}
+.o2{width:38vmax;height:38vmax;right:-12vmax;bottom:-10vmax;background:radial-gradient(circle,#6b3fa0,transparent 65%);animation:drift2 26s ease-in-out infinite alternate}
+@keyframes drift1{to{transform:translate(12vmax,10vmax) scale(1.15)}}
+@keyframes drift2{to{transform:translate(-10vmax,-12vmax) scale(1.2)}}
+.spot{position:fixed;inset:0;z-index:1;pointer-events:none;
+  background:radial-gradient(420px circle at var(--mx,50%) var(--my,30%),rgba(184,196,255,.10),transparent 70%)}
+.grain{position:fixed;inset:0;z-index:2;pointer-events:none;opacity:.05;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+
+main{position:relative;z-index:3}
+.wrap{width:min(1080px,100% - 40px);margin-inline:auto}
+
+/* шапка */
+header{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:10;padding:18px 0}
+nav{display:flex;justify-content:space-between;align-items:center;width:min(1080px,100% - 40px);margin-inline:auto}
+.logo{font:500 15px var(--display);letter-spacing:.02em}
+.links{display:flex;gap:6px;padding:6px;border:1px solid var(--line);border-radius:999px;background:rgba(10,10,12,.55);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.links a{padding:8px 16px;border-radius:999px;font-size:14px;color:var(--mute);transition:color .25s,background .25s}
+.links a:hover{color:var(--ink);background:rgba(255,255,255,.08)}
+
+/* hero */
+.hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding:120px 0 80px}
+.hi{color:var(--mute);margin:0 0 22px;opacity:0;animation:fade 1s .2s forwards}
+h1{margin:0;font:700 clamp(40px,9.5vw,118px)/1 var(--display);letter-spacing:-.03em}
+h1 .line{display:block;overflow:hidden;padding-bottom:.08em}
+h1 .ch{display:inline-block;transform:translateY(110%) rotate(6deg);animation:rise .9s cubic-bezier(.2,.9,.2,1) forwards;animation-delay:calc(.35s + var(--i)*.045s)}
+h1 .thin{font-weight:300;color:var(--mute)}
+@keyframes rise{to{transform:none}}
+@keyframes fade{to{opacity:1}}
+.lead{max-width:34em;margin:34px 0 40px;font-size:clamp(17px,2vw,20px);color:#c9c9d0;opacity:0;animation:fade 1s 1.5s forwards}
+.cta{display:flex;flex-wrap:wrap;gap:14px;opacity:0;animation:fade 1s 1.8s forwards}
+
+/* кнопки */
+.btn{position:relative;display:inline-flex;align-items:center;gap:10px;padding:16px 30px;border-radius:999px;font:600 15px var(--body);cursor:pointer;isolation:isolate;transition:transform .25s cubic-bezier(.2,.9,.2,1)}
+.btn-main{color:#000;background:#fff;overflow:hidden}
+.btn-main::before{content:"";position:absolute;inset:-2px;z-index:-1;border-radius:inherit;
+  background:conic-gradient(from var(--a,0deg),#fff,#8fa0ff,#c08bff,#fff);animation:spin 4s linear infinite}
+.btn-main::after{content:"";position:absolute;inset:2px;z-index:-1;border-radius:inherit;background:#fff}
+.btn-main .shine{position:absolute;top:0;bottom:0;width:40%;left:-60%;background:linear-gradient(100deg,transparent,rgba(120,130,255,.35),transparent);transform:skewX(-20deg);transition:left .7s}
+.btn-main:hover .shine{left:130%}
+@property --a{syntax:'<angle>';inherits:false;initial-value:0deg}
+@keyframes spin{to{--a:360deg}}
+.btn-ghost{color:var(--ink);background:rgba(255,255,255,.04);border:1px solid var(--line);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);overflow:hidden;transition:transform .25s cubic-bezier(.2,.9,.2,1),border-color .3s,background .3s}
+.btn-ghost::before{content:"";position:absolute;inset:0;z-index:-1;opacity:0;transition:opacity .3s;
+  background:radial-gradient(120px circle at var(--bx,50%) var(--by,50%),rgba(184,196,255,.28),transparent 70%)}
+.btn-ghost:hover{border-color:rgba(184,196,255,.5);background:rgba(255,255,255,.07)}
+.btn-ghost:hover::before{opacity:1}
+.btn svg{width:18px;height:18px;flex:none}
+
+/* секции */
+section{padding:110px 0}
+h2{margin:0 0 44px;font:500 clamp(28px,4.4vw,48px)/1.1 var(--display);letter-spacing:-.02em}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .9s,transform .9s cubic-bezier(.2,.9,.2,1)}
+.reveal.in{opacity:1;transform:none}
+
+.about{display:grid;grid-template-columns:1.3fr 1fr;gap:56px}
+.about p{margin:0 0 18px;color:#c9c9d0;max-width:34em}
+.facts{display:grid;gap:14px;align-content:start}
+.fact{padding:22px 24px;border:1px solid var(--line);border-radius:22px;background:rgba(255,255,255,.03)}
+.fact b{display:block;font:500 28px var(--display);margin-bottom:2px}
+.fact span{color:var(--mute);font-size:15px}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}
+.tags span{padding:7px 15px;border:1px solid var(--line);border-radius:999px;font-size:14px;color:#c9c9d0}
+
+/* проекты */
+.projects{display:grid;grid-template-columns:minmax(0,520px);gap:18px}
+.card{position:relative;display:flex;flex-direction:column;min-height:260px;padding:30px;border-radius:26px;background:#0a0a0c;border:1px solid var(--line);overflow:hidden;transition:transform .4s cubic-bezier(.2,.9,.2,1),border-color .4s}
+.card::before{content:"";position:absolute;inset:0;opacity:0;transition:opacity .4s;
+  background:radial-gradient(360px circle at var(--cx,50%) var(--cy,50%),rgba(143,160,255,.16),transparent 70%)}
+.card:hover{transform:translateY(-6px);border-color:rgba(184,196,255,.4)}
+.card:hover::before{opacity:1}
+.card>*{position:relative}
+.card h3{margin:0 0 10px;font:500 21px var(--display)}
+.card p{margin:0 0 auto;color:var(--mute);font-size:16px}
+.card .go{display:inline-flex;align-items:center;gap:8px;margin-top:26px;font-weight:600;font-size:15px}
+.card .go i{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;border:1px solid var(--line);transition:background .3s,color .3s,transform .4s}
+.card:hover .go i{background:#fff;color:#000;transform:rotate(-45deg)}
+
+/* контакты */
+.contact{text-align:center}
+.contact h2{margin-bottom:18px}
+.contact p{margin:0 auto 38px;color:var(--mute);max-width:28em}
+.contact .cta{justify-content:center;opacity:1;animation:none}
+footer{padding:40px 0 60px;text-align:center;color:var(--mute);font-size:14px;border-top:1px solid var(--line)}
+
+@media(max-width:760px){
+  .about{grid-template-columns:1fr;gap:36px}
+  .links a{padding:8px 11px}
+  .logo{display:none}
+  nav{justify-content:center}
+  section{padding:80px 0}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation-duration:.01ms!important;animation-delay:0s!important;transition-duration:.01ms!important}
+  h1 .ch{transform:none}.hi,.lead,.cta,.reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<div class="orbs"><div class="orb o1"></div><div class="orb o2"></div></div>
+<div class="spot"></div>
+<div class="grain"></div>
+
+<header>
+  <nav>
+    <a class="logo" href="#top">ДВ</a>
+    <div class="links">
+      <a href="#about">Обо мне</a>
+      <a href="#projects">Проекты</a>
+      <a href="#contact">Контакты</a>
+    </div>
+  </nav>
+</header>
+
+<main id="top">
+  <div class="wrap hero">
+    <p class="hi">Привет, я</p>
+    <h1 aria-label="Даниил Ветмо, делаю Telegram-ботов">
+      <span class="line" data-split>Даниил Ветмо</span>
+      <span class="line thin" data-split>делаю Telegram-ботов</span>
+    </h1>
+    <p class="lead">Мне 18 лет. Делаю ботов для Telegram и занимаюсь перепродажей аккаунтов. Если нужен бот или есть вопрос, пишите мне в Telegram.</p>
+    <div class="cta">
+      <a class="btn btn-main" href="#projects" data-magnet><span class="shine"></span>Смотреть проекты</a>
+      <a class="btn btn-ghost" href="https://t.me/danielvetmo" target="_blank" rel="noopener" data-magnet>Написать мне</a>
+    </div>
+  </div>
+
+  <section id="about">
+    <div class="wrap about">
+      <div class="reveal">
+        <h2>Обо мне</h2>
+        <p>Меня зовут Даниил Ветмо, мне 18 лет. Я делаю ботов для Telegram и занимаюсь перепродажей аккаунтов.</p>
+        <p>Один из моих проектов — бот-магазин, в котором можно купить звёзды и пополнить Steam.</p>
+        <div class="tags"><span>Telegram-боты</span><span>Перепродажа аккаунтов</span></div>
+      </div>
+      <div class="facts reveal">
+        <div class="fact"><b>18 лет</b><span>возраст</span></div>
+        <div class="fact"><b>Боты</b><span>делаю для Telegram</span></div>
+        <div class="fact"><b>Аккаунты</b><span>перепродажа</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="wrap">
+      <h2 class="reveal">Мои проекты</h2>
+      <div class="projects reveal">
+        <a class="card" href="https://t.me/selling2msbot" target="_blank" rel="noopener">
+          <h3>Мой магазин</h3>
+          <p>Бот для покупки звёзд и пополнения Steam.</p>
+          <span class="go">Открыть бота <i><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap contact reveal">
+      <h2>Давайте работать вместе</h2>
+      <p>Нужен бот или есть вопрос? Напишите мне в Telegram.</p>
+      <div class="cta">
+        <a class="btn btn-main" href="https://t.me/danielvetmo" target="_blank" rel="noopener" data-magnet><span class="shine"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 4 3 11l6 2 2 6 3-4 5 4z"/></svg>Написать в Telegram</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>© 2026 Даниил Ветмо</footer>
+</main>
+
+<script>
+// Заголовок: буквы поднимаются по очереди
+(function(){
+  var n=0;
+  document.querySelectorAll('[data-split]').forEach(function(el){
+    var t=el.textContent; el.textContent='';
+    t.split(' ').forEach(function(w,wi,arr){
+      var word=document.createElement('span');
+      word.style.display='inline-block';
+      Array.from(w).forEach(function(c){
+        var s=document.createElement('span');
+        s.className='ch'; s.style.setProperty('--i',n++); s.textContent=c;
+        word.appendChild(s);
+      });
+      el.appendChild(word);
+      if(wi<arr.length-1) el.appendChild(document.createTextNode(' '));
+    });
+  });
+})();
+
+// Свет за курсором
+var spot=document.querySelector('.spot');
+window.addEventListener('pointermove',function(e){
+  spot.style.setProperty('--mx',e.clientX+'px');
+  spot.style.setProperty('--my',e.clientY+'px');
+},{passive:true});
+
+// Подсветка внутри карточек и кнопок
+function track(sel,x,y){
+  document.querySelectorAll(sel).forEach(function(el){
+    el.addEventListener('pointermove',function(e){
+      var r=el.getBoundingClientRect();
+      el.style.setProperty(x,(e.clientX-r.left)+'px');
+      el.style.setProperty(y,(e.clientY-r.top)+'px');
+    });
+  });
+}
+track('.card','--cx','--cy');
+track('.btn-ghost','--bx','--by');
+
+// Магнитные кнопки
+if(matchMedia('(hover:hover)').matches){
+  document.querySelectorAll('[data-magnet]').forEach(function(b){
+    b.addEventListener('pointermove',function(e){
+      var r=b.getBoundingClientRect();
+      var dx=(e.clientX-r.left-r.width/2)*.22, dy=(e.clientY-r.top-r.height/2)*.3;
+      b.style.transform='translate('+dx+'px,'+dy+'px)';
+    });
+    b.addEventListener('pointerleave',function(){b.style.transform='';});
+  });
+}
+
+// Появление секций
+var io=new IntersectionObserver(function(es){
+  es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
+},{threshold:.15});
+document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+</script>
+</body>
+</html>
